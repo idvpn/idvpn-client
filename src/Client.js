@@ -1,7 +1,7 @@
-import Oidc from 'oidc-client';
-import EventEmitter from 'eventemitter3';
+const EventEmitter = require('eventemitter3');
+const Oidc = require('oidc-client');
 
-export default class IdVPNClient extends EventEmitter {
+class IdVPNClient extends EventEmitter {
   constructor(clientOptions = {}, options = {}) {
     super();
     this.options = options;
@@ -57,3 +57,5 @@ export default class IdVPNClient extends EventEmitter {
     return this._client.silentSignin();
   }
 }
+
+module.exports = IdVPNClient;

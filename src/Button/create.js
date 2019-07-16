@@ -1,6 +1,6 @@
-import { BUTTON_ID, BUTTON_STYLE } from './constants';
+const { BUTTON_ID, BUTTON_STYLE } = require('./constants');
 
-export default (isLoggedIn, client) => {
+module.exports = (isLoggedIn, client) => {
   const button = document.createElement('BUTTON');
   button.id = BUTTON_ID;
   for (let key in BUTTON_STYLE) button.style[key] = BUTTON_STYLE[key];

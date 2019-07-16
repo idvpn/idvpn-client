@@ -1,7 +1,7 @@
-import createButton from './create';
-import { BUTTON_ID } from './constants';
+const createButton = require('./create');
+const { BUTTON_ID } = require('./constants');
 
-export default (parent, isLoggedIn, client) => {
+module.exports = (parent, isLoggedIn, client) => {
   const button = createButton(isLoggedIn, client);
 
   for (let i = 0; i < parent.children.length; i++) {
