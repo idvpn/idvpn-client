@@ -2127,7 +2127,7 @@ exports.f = __webpack_require__("8e60") ? gOPD : function getOwnPropertyDescript
 /***/ "c097":
 /***/ (function(module, exports) {
 
-module.exports = require("Oidc");
+module.exports = require("oidc-client");
 
 /***/ }),
 
@@ -2812,8 +2812,8 @@ function _inherits(subClass, superClass) {
   });
   if (superClass) _setPrototypeOf(subClass, superClass);
 }
-// EXTERNAL MODULE: external "Oidc"
-var external_Oidc_ = __webpack_require__("c097");
+// EXTERNAL MODULE: external "oidc-client"
+var external_oidc_client_ = __webpack_require__("c097");
 
 // EXTERNAL MODULE: ./node_modules/eventemitter3/index.js
 var eventemitter3 = __webpack_require__("ba10");
@@ -2843,8 +2843,8 @@ function (_EventEmitter) {
 
     _this = _possibleConstructorReturn(this, getPrototypeOf_getPrototypeOf(IdVPNClient).call(this));
     _this.options = options;
-    _this._client = new external_Oidc_.UserManager(Object.assign({
-      userStore: new external_Oidc_.WebStorageStateStore(),
+    _this._client = new external_oidc_client_.UserManager(Object.assign({
+      userStore: new external_oidc_client_.WebStorageStateStore(),
       loadUserInfo: true
     }, clientOptions));
 
@@ -2965,7 +2965,7 @@ var BUTTON_STYLE = {
   parent.appendChild(button);
   return button;
 });
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a34b1e8c-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Button.vue?vue&type=template&id=36d4b4a4&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"18328de4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Button.vue?vue&type=template&id=36d4b4a4&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"idvpn-button"})}
 var staticRenderFns = []
 

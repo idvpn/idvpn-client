@@ -5,6 +5,7 @@ dist/idvpn.umd.min.js
 dist/idvpn.umd.min.js.map
 src/
 tests/
+.browserslistrc
 .eslintrc.js
 .prettierignore
 .prettierrc.js
