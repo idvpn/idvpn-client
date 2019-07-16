@@ -1,7 +1,7 @@
 {
   "name": "idvpn-client",
   "version": "0.1.0",
-  "private": true,
+  "main": "dist/idvpn.common.js",
   "scripts": {
     "build": "vue-cli-service build --target lib --name idvpn src/index.mjs",
     "format": "prettier --write '**/*.{js,mjs,json,vue}'",

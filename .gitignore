@@ -1,6 +1,10 @@
 .DS_Store
 node_modules
-/dist
+dist/demo.html
+dist/idvpn.umd.js
+dist/idvpn.umd.js.map
+dist/idvpn.umd.min.js
+dist/idvpn.umd.min.js.map
 
 /tests/e2e/reports/
 selenium-debug.log

@@ -1,0 +1,13 @@
+dist/demo.html
+dist/idvpn.umd.js
+dist/idvpn.umd.js.map
+dist/idvpn.umd.min.js
+dist/idvpn.umd.min.js.map
+src/
+tests/
+.eslintrc.js
+.prettierignore
+.prettierrc.js
+babel.config.js
+postcss.config.js
+vue.config.js
