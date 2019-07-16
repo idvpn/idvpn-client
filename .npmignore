@@ -1,8 +1,4 @@
 dist/demo.html
-dist/idvpn.umd.js
-dist/idvpn.umd.js.map
-dist/idvpn.umd.min.js
-dist/idvpn.umd.min.js.map
 src/
 tests/
 .browserslistrc

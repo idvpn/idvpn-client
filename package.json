@@ -1,7 +1,7 @@
 {
   "name": "idvpn-client",
   "version": "0.1.0",
-  "main": "dist/idvpn.common.js",
+  "main": "dist/idvpn.umd.js",
   "scripts": {
     "build": "vue-cli-service build --target lib --name idvpn src/index.mjs",
     "format": "prettier --write '**/*.{js,mjs,json,vue}'",
@@ -9,9 +9,11 @@
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
   },
+  "dependencies": {
+    "eventemitter3": "^4.0.0",
+    "oidc-client": "^1.x"
+  },
   "peerDependencies": {
-    "eventemitter3": "^4.x",
-    "oidc-client": "^1.x",
     "vue": "^2.x"
   },
   "devDependencies": {
