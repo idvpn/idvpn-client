@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "fae3");
+/******/ 	return __webpack_require__(__webpack_require__.s = "fb15");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2719,7 +2719,7 @@ module.exports = __webpack_require__("584a").Object.getPrototypeOf;
 
 /***/ }),
 
-/***/ "fae3":
+/***/ "fb15":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3177,12 +3177,15 @@ var component = normalizeComponent(
 
 
 
+/* harmony default export */ var src = ({
+  Client: Client_IdVPNClient,
+  appendButton: append,
+  ButtonVue: Button
+});
+// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 
-// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib-no-default.js
-/* concated harmony reexport Client */__webpack_require__.d(__webpack_exports__, "Client", function() { return Client_IdVPNClient; });
-/* concated harmony reexport appendButton */__webpack_require__.d(__webpack_exports__, "appendButton", function() { return append; });
-/* concated harmony reexport ButtonVue */__webpack_require__.d(__webpack_exports__, "ButtonVue", function() { return Button; });
 
+/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src);
 
 
 
