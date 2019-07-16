@@ -12,7 +12,7 @@
   "peerDependencies": {
     "eventemitter3": "^4.x",
     "oidc-client": "^1.x",
-    "vuejs": "^3.x"
+    "vue": "^3.x"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.2",
