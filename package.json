@@ -1,10 +1,9 @@
 {
   "name": "idvpn-client",
   "version": "0.1.0",
-  "main": "dist/idvpn-client.min.js",
+  "main": "dist/idvpn.umd.min.js",
   "scripts": {
-    "build": "NODE_ENV=development webpack",
-    "release": "NODE_ENV=production webpack",
+    "build": "vue-cli-service build --target lib --name idvpn src/index.mjs",
     "format": "prettier --write '**/*.{js,mjs,json,vue}'",
     "lint": "eslint . --ext .js,.mjs,.vue",
     "test:e2e": "vue-cli-service test:e2e",
@@ -17,6 +16,14 @@
     "oidc-client": "^1.x"
   },
   "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.9.2",
+    "@vue/cli-plugin-e2e-cypress": "^3.9.0",
+    "@vue/cli-plugin-eslint": "^3.9.2",
+    "@vue/cli-plugin-unit-mocha": "^3.9.0",
+    "@vue/cli-service": "^3.9.2",
+    "@vue/eslint-config-airbnb": "^4.0.1",
+    "@vue/eslint-config-prettier": "^4.0.1",
+    "@vue/test-utils": "^1.0.0-beta.29",
     "babel-eslint": "^10.0.2",
     "chai": "^4.2.0",
     "eslint-plugin-import": "^2.18.0",
