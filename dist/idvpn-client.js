@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.mjs");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -156,14 +156,15 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ }),
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/index.mjs":
+/*!***********************!*\
+  !*** ./src/index.mjs ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(__webpack_module__, __webpack_exports__, __webpack_require__) {
 
-eval("var Client = __webpack_require__(/*! ./Client */ \"./src/Client.mjs\");\n\nvar appendButton = __webpack_require__(/*! ./Button/append */ \"./src/Button/append.mjs\");\n\nmodule.exports = {\n  Client: Client,\n  appendButton: appendButton\n};\n\n//# sourceURL=webpack://idvpn/./src/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Client */ \"./src/Client.mjs\");\n/* harmony import */ var _Button_append__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button/append */ \"./src/Button/append.mjs\");\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  Client: _Client__WEBPACK_IMPORTED_MODULE_0__[\"default\"],\n  appendButton: _Button_append__WEBPACK_IMPORTED_MODULE_1__[\"default\"]\n});\n\n//# sourceURL=webpack://idvpn/./src/index.mjs?");
 
 /***/ }),
 
