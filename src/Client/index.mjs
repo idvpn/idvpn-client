@@ -37,9 +37,15 @@ export default class IdVPNClient extends EventEmitter {
     this.isLoggedIn = false;
     this.emit('userUnloaded');
   };
-  _onSilentRenewalError = err => this.emit('renewalError', err);
-  _onUserSignedOut = () => this.emit('userLoggedOut');
-  _onSessionChanged = session => this.emit('sessionChanged', session);
+  _onSilentRenewalError = err => {
+    this.emit('renewalError', err);
+  };
+  _onUserSignedOut = () => {
+    this.emit('userLoggedOut');
+  };
+  _onSessionChanged = session => {
+    this.emit('sessionChanged', session);
+  };
 
   login() {
     if (this.options.popup) return this._client.signinPopup();

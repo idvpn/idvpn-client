@@ -559,15 +559,15 @@ function (_EventEmitter) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "_onSilentRenewalError", function (err) {
-      return _this.emit('renewalError', err);
+      _this.emit('renewalError', err);
     });
 
     _defineProperty(_assertThisInitialized(_this), "_onUserSignedOut", function () {
-      return _this.emit('userLoggedOut');
+      _this.emit('userLoggedOut');
     });
 
     _defineProperty(_assertThisInitialized(_this), "_onSessionChanged", function (session) {
-      return _this.emit('sessionChanged', session);
+      _this.emit('sessionChanged', session);
     });
 
     _this.options = options;
