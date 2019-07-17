@@ -1,7 +1,7 @@
 {
   "name": "idvpn-client",
   "version": "0.1.0",
-  "main": "dist/idvpn.umd.min.js",
+  "main": "dist/idvpn.umd.js",
   "license": "MIT",
   "repository": "https://github.com/kmalakoff/idvpn-client",
   "scripts": {
@@ -16,6 +16,7 @@
     "oidc-client": "^1.x"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/plugin-proposal-export-default-from": "^7.5.2",
     "@vue/cli-plugin-babel": "^3.9.2",
     "@vue/cli-plugin-e2e-cypress": "^3.9.0",
@@ -30,7 +31,9 @@
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.2",
-    "eventemitter3": "^4.0.0",
     "vue-template-compiler": "^2.6.10"
+  },
+  "dependencies": {
+    "eventemitter3": "^4.0.0"
   }
 }

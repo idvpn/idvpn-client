@@ -495,9 +495,9 @@ if (typeof window !== 'undefined') {
     __webpack_require__("f6fd")
   }
 
-  var setPublicPath_i
-  if ((setPublicPath_i = window.document.currentScript) && (setPublicPath_i = setPublicPath_i.src.match(/(.+\/)[^/]+\.js(\?.*)?$/))) {
-    __webpack_require__.p = setPublicPath_i[1] // eslint-disable-line
+  var i
+  if ((i = window.document.currentScript) && (i = i.src.match(/(.+\/)[^/]+\.js(\?.*)?$/))) {
+    __webpack_require__.p = i[1] // eslint-disable-line
   }
 }
 
@@ -510,7 +510,7 @@ var eventemitter3 = __webpack_require__("ba10");
 // EXTERNAL MODULE: external {"commonjs":"oidc-client","commonjs2":"oidc-client","amd":"oidc-client","root":"Oidc"}
 var external_commonjs_oidc_client_commonjs2_oidc_client_amd_oidc_client_root_Oidc_ = __webpack_require__("c097");
 
-// CONCATENATED MODULE: ./src/Client.mjs
+// CONCATENATED MODULE: ./src/Client/index.mjs
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -521,13 +521,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -537,45 +539,71 @@ var Client_IdVPNClient =
 function (_EventEmitter) {
   _inherits(IdVPNClient, _EventEmitter);
 
-  function IdVPNClient() {
+  function IdVPNClient(options) {
     var _this;
-
-    var clientOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     _classCallCheck(this, IdVPNClient);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(IdVPNClient).call(this));
-    _this.options = options;
-    _this._client = new external_commonjs_oidc_client_commonjs2_oidc_client_amd_oidc_client_root_Oidc_.UserManager(Object.assign({
-      userStore: new external_commonjs_oidc_client_commonjs2_oidc_client_amd_oidc_client_root_Oidc_.WebStorageStateStore(),
-      loadUserInfo: true
-    }, clientOptions));
 
-    _this._client.events.addUserLoaded(function (user) {
-      return _this.emit('userLoaded', user);
+    _defineProperty(_assertThisInitialized(_this), "_onUserLoaded", function (user) {
+      _this.isLoggedIn = true;
+
+      _this.emit('userLoaded', user);
     });
 
-    _this._client.events.addUserUnloaded(function () {
-      return _this.emit('userUnloaded');
+    _defineProperty(_assertThisInitialized(_this), "_onUserUnloaded", function () {
+      _this.isLoggedIn = false;
+
+      _this.emit('userUnloaded');
     });
 
-    _this._client.events.addSilentRenewError(function (err) {
+    _defineProperty(_assertThisInitialized(_this), "_onSilentRenewalError", function (err) {
       return _this.emit('renewalError', err);
     });
 
-    _this._client.events.addUserSignedOut(function () {
+    _defineProperty(_assertThisInitialized(_this), "_onUserSignedOut", function () {
       return _this.emit('userLoggedOut');
     });
 
-    _this._client.events.addUserSessionChanged(function (session) {
+    _defineProperty(_assertThisInitialized(_this), "_onSessionChanged", function (session) {
       return _this.emit('sessionChanged', session);
     });
+
+    _this.options = options;
+    _this.isLoggedIn = false;
+    _this._client = new external_commonjs_oidc_client_commonjs2_oidc_client_amd_oidc_client_root_Oidc_.UserManager(Object.assign({
+      userStore: new external_commonjs_oidc_client_commonjs2_oidc_client_amd_oidc_client_root_Oidc_.WebStorageStateStore(),
+      loadUserInfo: true
+    }, options));
+
+    _this._client.events.addUserLoaded(_this._onUserLoaded);
+
+    _this._client.events.addUserUnloaded(_this._onUserUnloaded);
+
+    _this._client.events.addSilentRenewError(_this._onSilentRenewalError);
+
+    _this._client.events.addUserSignedOut(_this._onUserSignedOut);
+
+    _this._client.events.addUserSessionChanged(_this._onSessionChanged);
 
     return _this;
   }
 
   _createClass(IdVPNClient, [{
+    key: "destroy",
+    value: function destroy() {
+      this._client.events.removeUserLoaded(this._onUserLoaded);
+
+      this._client.events.removeUserUnloaded(this._onUserUnloaded);
+
+      this._client.events.removeSilentRenewError(this._onSilentRenewalError);
+
+      this._client.events.removeUserSignedOut(this._onUserSignedOut);
+
+      this._client.events.removeUserSessionChanged(this._onSessionChanged);
+    }
+  }, {
     key: "login",
     value: function login() {
       if (this.options.popup) return this._client.signinPopup();else return this._client.signinRedirect();
@@ -634,47 +662,63 @@ var BUTTON_STYLE = {
   borderRadius: '2px',
   border: 'none'
 };
+// CONCATENATED MODULE: ./src/Button/updateText.mjs
+/* harmony default export */ var updateText = (function (button, isLoggedIn) {
+  while (button.firstChild) {
+    button.removeChild(button.firstChild);
+  }
+
+  var text = document.createTextNode(isLoggedIn ? 'Logout' : 'IdVPN Login');
+  button.appendChild(text);
+});
+// CONCATENATED MODULE: ./src/Button/destroy.mjs
+/* harmony default export */ var destroy = (function (button) {
+  if (!button.client) throw new Error('client missing');
+  button.client.destroy();
+  button.client = null;
+});
 // CONCATENATED MODULE: ./src/Button/create.mjs
 
-/* harmony default export */ var create = (function (isLoggedIn, client) {
+
+
+
+/* harmony default export */ var create = (function (options) {
+  var client = options.client || new Client_IdVPNClient(options); // create and style the buttons
+
   var button = document.createElement('BUTTON');
   button.id = BUTTON_ID;
 
   for (var key in BUTTON_STYLE) {
     button.style[key] = BUTTON_STYLE[key];
-  }
+  } // sync button to the client
 
+
+  button.client = client;
   button.addEventListener('click', function () {
-    isLoggedIn ? client.logout() : client.login();
+    return client.isLoggedIn ? client.logout() : client.login();
   });
-  var text = document.createTextNode(isLoggedIn ? 'Logout' : 'IdVPN Login');
-  button.appendChild(text);
-  return button;
-});
-// CONCATENATED MODULE: ./src/Button/append.mjs
+  updateText(button, client.isLoggedIn);
+  client.on('userLoaded', function (user) {
+    updateText(button, client.isLoggedIn);
+    !options.onLogin || options.onLogin(user);
+  });
+  client.on('userUnloaded', function () {
+    updateText(button, client.isLoggedIn);
+    !options.onLogout || options.onLogout();
+  });
 
+  button.destroy = function () {
+    return destroy(button);
+  };
 
-/* harmony default export */ var append = (function (parent, isLoggedIn, client) {
-  var button = create(isLoggedIn, client);
-
-  for (var i = 0; i < parent.children.length; i++) {
-    var child = parent.children[i];
-
-    if (child.id === BUTTON_ID) {
-      parent.replaceChild(button, child);
-      return button;
-    }
-  }
-
-  parent.appendChild(button);
   return button;
 });
 // CONCATENATED MODULE: ./src/index.mjs
 
 
 /* harmony default export */ var src = ({
-  Client: Client_IdVPNClient,
-  appendButton: append
+  createButton: create,
+  Client: Client_IdVPNClient
 });
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 

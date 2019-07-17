@@ -2,24 +2,44 @@ import EventEmitter from 'eventemitter3';
 import Oidc from 'oidc-client';
 
 export default class IdVPNClient extends EventEmitter {
-  constructor(clientOptions = {}, options = {}) {
+  constructor(options) {
     super();
     this.options = options;
+    this.isLoggedIn = false;
     this._client = new Oidc.UserManager(
       Object.assign(
         {
           userStore: new Oidc.WebStorageStateStore(),
           loadUserInfo: true
         },
-        clientOptions
+        options
       )
     );
-    this._client.events.addUserLoaded(user => this.emit('userLoaded', user));
-    this._client.events.addUserUnloaded(() => this.emit('userUnloaded'));
-    this._client.events.addSilentRenewError(err => this.emit('renewalError', err));
-    this._client.events.addUserSignedOut(() => this.emit('userLoggedOut'));
-    this._client.events.addUserSessionChanged(session => this.emit('sessionChanged', session));
+    this._client.events.addUserLoaded(this._onUserLoaded);
+    this._client.events.addUserUnloaded(this._onUserUnloaded);
+    this._client.events.addSilentRenewError(this._onSilentRenewalError);
+    this._client.events.addUserSignedOut(this._onUserSignedOut);
+    this._client.events.addUserSessionChanged(this._onSessionChanged);
   }
+  destroy() {
+    this._client.events.removeUserLoaded(this._onUserLoaded);
+    this._client.events.removeUserUnloaded(this._onUserUnloaded);
+    this._client.events.removeSilentRenewError(this._onSilentRenewalError);
+    this._client.events.removeUserSignedOut(this._onUserSignedOut);
+    this._client.events.removeUserSessionChanged(this._onSessionChanged);
+  }
+
+  _onUserLoaded = user => {
+    this.isLoggedIn = true;
+    this.emit('userLoaded', user);
+  };
+  _onUserUnloaded = () => {
+    this.isLoggedIn = false;
+    this.emit('userUnloaded');
+  };
+  _onSilentRenewalError = err => this.emit('renewalError', err);
+  _onUserSignedOut = () => this.emit('userLoggedOut');
+  _onSessionChanged = session => this.emit('sessionChanged', session);
 
   login() {
     if (this.options.popup) return this._client.signinPopup();
