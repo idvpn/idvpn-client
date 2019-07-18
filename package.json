@@ -12,11 +12,12 @@
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
   },
-  "peerDependencies": {
-    "oidc-client": "^1.x"
+  "dependencies": {
+    "auth0-js": "github:kmalakoff/auth0.js",
+    "eventemitter3": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-export-default-from": "^7.5.2",
     "@vue/cli-plugin-babel": "^3.9.2",
     "@vue/cli-plugin-e2e-cypress": "^3.9.0",
@@ -32,8 +33,5 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.2",
     "vue-template-compiler": "^2.6.10"
-  },
-  "dependencies": {
-    "eventemitter3": "^4.0.0"
   }
 }

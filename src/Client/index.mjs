@@ -1,60 +1,49 @@
+import Auth0 from 'auth0-js';
 import EventEmitter from 'eventemitter3';
-import Oidc from 'oidc-client';
 
 export default class IdVPNClient extends EventEmitter {
   constructor(options) {
     super();
     this.options = options;
     this.isLoggedIn = false;
-    this._client = new Oidc.UserManager(
-      Object.assign(
-        {
-          userStore: new Oidc.WebStorageStateStore(),
-          loadUserInfo: true
-        },
-        options
-      )
-    );
-    this._client.events.addUserLoaded(this._onUserLoaded);
-    this._client.events.addUserUnloaded(this._onUserUnloaded);
-    this._client.events.addSilentRenewError(this._onSilentRenewalError);
-    this._client.events.addUserSignedOut(this._onUserSignedOut);
-    this._client.events.addUserSessionChanged(this._onSessionChanged);
+    this._client = new Auth0.WebAuth({
+      domain: options.authority,
+      clientID: options.client_id,
+      redirectUri: options.redirect_uri
+    });
   }
-  destroy() {
-    this._client.events.removeUserLoaded(this._onUserLoaded);
-    this._client.events.removeUserUnloaded(this._onUserUnloaded);
-    this._client.events.removeSilentRenewError(this._onSilentRenewalError);
-    this._client.events.removeUserSignedOut(this._onUserSignedOut);
-    this._client.events.removeUserSessionChanged(this._onSessionChanged);
-  }
+  destroy() {}
 
-  _onUserLoaded = user => {
-    this.isLoggedIn = true;
-    this.emit('userLoaded', user);
-  };
-  _onUserUnloaded = () => {
-    this.isLoggedIn = false;
-    this.emit('userUnloaded');
-  };
-  _onSilentRenewalError = err => {
-    this.emit('renewalError', err);
-  };
-  _onUserSignedOut = () => {
-    this.emit('userLoggedOut');
-  };
-  _onSessionChanged = session => {
-    this.emit('sessionChanged', session);
-  };
+  // _onUserLoaded = user => {
+  //   this.isLoggedIn = true;
+  //   this.emit('userLoaded', user);
+  // };
+  // _onUserUnloaded = () => {
+  //   this.isLoggedIn = false;
+  //   this.emit('userUnloaded');
+  // };
+  // _onSilentRenewalError = err => {
+  //   this.emit('renewalError', err);
+  // };
+  // _onUserSignedOut = () => {
+  //   this.emit('userLoggedOut');
+  // };
+  // _onSessionChanged = session => {
+  //   this.emit('sessionChanged', session);
+  // };
 
   login() {
-    if (this.options.popup) return this._client.signinPopup();
-    else return this._client.signinRedirect();
+    const options = {};
+    if (this.options.scope) options.scope = this.options.scope;
+    if (this.options.response_type) options.responseType = this.options.response_type;
+    if (this.options.response_mode) options.responseMode = this.options.response_mode;
+    if (this.options.popup) return this._client.popup.authorize(options);
+    else return this._client.authorize(options);
   }
 
   handleLoginCallback() {
-    if (this.options.popup) return this._client.signinPopupCallback();
-    else return this._client.signinRedirectCallback();
+    if (this.options.popup) return this._client.popup.callback();
+    else return this._client.authorize(this.options);
   }
 
   logout(params) {
